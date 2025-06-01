@@ -1,0 +1,1189 @@
+
+#BUTTONS
+<RoundedButton1>:  #sa calendar to
+    background_color: 0, 0, 0, 0  # Transparent background
+    background_normal: ''
+    color: 132/255, 165/255, 96/255, 1
+
+    halign: "center"  # Horizontal Center
+    valign: "middle"  # Vertical Center
+
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, .3  
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [50]
+
+
+
+
+
+
+
+<ImageButton>:
+    size_hint: (None, None)  # Tukuyin ang laki ng button
+    size: (100, 100)
+
+
+#MGA SCREENS
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: (24/255, 24/255, 24/255, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        # Wrapper for Title and Buttons with Background
+        BoxLayout:
+            canvas.before:
+                Color:
+                    rgba: 0.33, 0.33, 0.33, 0  # Mas opaque para kita ang title
+                RoundedRectangle:
+                    pos: self.x, self.y  # Nagdagdag ng padding sa taas
+                    size: self.width, self.height  # Bawas taas at baba
+                    radius: [50]
+            orientation: 'vertical'
+            spacing: 25  # Agwat ng bawat Label
+            size_hint: None, None  # Bawas height para hindi sagad
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}  # Gitna
+            padding: [0, 0, 0, 40]  # Magdagdag ng padding sa taas at baba
+            height: self.minimum_height
+
+            Label:
+                text: "MEALMETRIC"
+                font_size: 40
+                font_name: "font/Milker.otf"  # Custom font
+                color: (132/255, 165/255, 96/255, 1)
+
+            Label:
+                text: "Smart Weigh to Nutrition"
+                font_size: 20
+                font_name: "font/Milker.otf"  # Custom font
+                color: 1, 1, 1, 1  # White text
+
+            Label:
+                text: ""
+            Label:
+                text: ""
+            Label:
+                text: "Choose your Diet!"
+                font_size: 50
+                font_name: "font/Milker.otf"  # Custom font
+                color: 1, 1, 1, 1  # White text
+
+            
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 0
+            padding: 10
+            size_hint: (None, None)  # Tukuyin ang laki ng layout
+            width: 620  # Dapat kasya ang buttons + spacing
+            height: 300
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Gitna ng screen
+
+            ImageButtonKG:
+                on_press: app.change_screen('KetoScreen', 'left')    
+                size_hint: (None, None)
+                size: (300, 300)
+
+            ImageButtonHP:
+                on_press: app.change_screen('ProteinScreen', 'left')    
+                size_hint: (None, None)
+                size: (300, 300)
+                            
+
+<KetoScreen>:
+    BoxLayout:
+        size_hint: 1,1  # Para lumiit yung buong layout
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}  # I-center sa gitna
+        orientation: 'horizontal'
+        padding: 10,30,10,10
+        canvas.before:
+            Color:
+                rgba: (24/255, 24/255, 24/255, 1)  # Equivalent ng #140D29
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0]
+
+        
+
+        # Left area for the monitoring area (HINDI MAAPEKTOHAN)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .7, 1
+            spacing: 10
+
+            MonitoringArea:
+                id: monitor_area
+
+        # Right area for buttons (AYOS NA SCROLL + SPACE)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None  # Huwag gumamit ng relative size
+            size: 250, 450  # Baguhin ang laki ayon sa gusto mo
+            padding: 10,0,10,30
+            spacing: 10
+
+            canvas.before:
+                Rectangle:
+                    source: 'Image/scroll.png'  # Palitan ng tamang path ng image
+                    pos: self.pos
+                    size: self.size
+
+            ScrollView:
+                bar_width: 5  # Itinatago ang scroll bar
+                size_hint: (0.9, None)
+                size: self.x , 390
+                do_scroll_x: False
+                effect_cls: 'ScrollEffect'  # Smooth scrolling
+                scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                pos_hint: {"center_x": 0.5}  
+                BoxLayout:
+                    id: buttons_area
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: max(self.minimum_height, 100)  # Para may default height
+                    spacing: 10
+                    padding: 10,0,10,0
+                    
+                    Widget:
+                        size_hint_y: None
+                        height: 10  # Extra space para hindi sumagad sa ilalim
+
+
+
+<ProteinScreen>:
+    BoxLayout:
+        size_hint: 1,1  # Para lumiit yung buong layout
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}  # I-center sa gitna
+        orientation: 'horizontal'
+        padding: 10,30,10,10
+        canvas.before:
+            Color:
+                rgba: (24/255, 24/255, 24/255, 1)  # Equivalent ng #140D29
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0]
+
+        
+
+        # Left area for the monitoring area (HINDI MAAPEKTOHAN)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: .7, 1
+            spacing: 10
+
+            ProMonitoringArea:
+                id: monitor_area
+
+        # Right area for buttons (AYOS NA SCROLL + SPACE)
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None  # Huwag gumamit ng relative size
+            size: 250, 450  # Baguhin ang laki ayon sa gusto mo
+            padding: 10,0,10,30
+            spacing: 10
+
+            canvas.before:
+                Rectangle:
+                    source: 'Image/scroll.png'  # Palitan ng tamang path ng image
+                    pos: self.pos
+                    size: self.size
+
+            ScrollView:
+                bar_width: 5  # Itinatago ang scroll bar
+                size_hint: (0.9, None)
+                size: self.x , 390
+                do_scroll_x: False
+                effect_cls: 'ScrollEffect'  # Smooth scrolling
+                scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                pos_hint: {"center_x": 0.5}  
+                BoxLayout:
+                    id: buttons_area
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: max(self.minimum_height, 100)  # Para may default height
+                    spacing: 10
+                    padding: 10,0,10,0
+                    
+                    Widget:
+                        size_hint_y: None
+                        height: 10  # Extra space para hindi sumagad sa ilalim
+
+
+
+
+<MealScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0,10,10,10
+        spacing: 5
+        
+        canvas.before:
+            Color:
+                rgba: (24/255, 24/255, 24/255, 1)  # Equivalent ng #140D29
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0]
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None 
+            size: 300, 800
+            padding: 0,10,10,10
+            spacing: 5
+            height: "300dp"  # Fixed height para hindi gumalaw pababa
+            
+            
+            FloatLayout:
+                orientation: 'vertical'
+                size_hint_x: 2
+                size_hint_y: 1.74
+                pos_hint: {'center_x':2,'center_y': 0.8}
+                height: 300  # Increase the height to make the BoxLayout larger
+                padding: 5
+                spacing: 5
+                canvas.before:
+                    Color:
+                        rgba: 0.6, 0.6, 0.6, 0.2  # Background color of the BoxLayout
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [0]
+
+                # Calendar Widget
+                CalendarWidget:
+                    id: calendar_widget
+                    size_hint: 0.9, 0.8
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6} 
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos_hint: {'center_y': 0.53}
+            # Breakfast Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None, None 
+                size:480, 150
+                pos_hint: {'center_y': 1}
+                padding: 10
+                spacing: 5
+                
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day2.png'  # Palitan ng tamang path ng image
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    text: "BREAKFAST"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "center"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'ScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    pos_hint: {"center_x": 0.5}  
+                    on_parent: self.scroll_y = 1  # Auto-scroll sa taas kapag nag-load
+                    padding: 10,10,10,10
+                    size_hint: None, None
+                    size: 400,100  # Itakda ang tiyak na lapad at taas
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        GridLayout:
+                            id: breakfast_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+            # Lunch Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None,None
+                size:480, 150
+                pos_hint: {'center_y': 1}
+                padding: 10,10,10,20
+                spacing: 5
+
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day1.png'  # Ensure correct file path
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    text: "LUNCH"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "center"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'ScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    on_parent: self.scroll_y = 1  # Auto-scroll sa taas kapag nag-load
+
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        GridLayout:
+                            id: lunch_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+            # Dinner Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None, None 
+                size:480, 150
+                pos_hint: {'center_y': 1}
+                padding: 10
+                spacing: 5
+                
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day.png'  # Palitan ng tamang path ng image
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    text: "DINNER"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "left"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'ScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    pos_hint: {"center_x": 0.5}  
+                    on_parent: self.scroll_y = 1  # Auto-scroll sa taas kapag nag-load
+                    padding: 10,10,10,10
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        GridLayout:
+                            id: dinner_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+<ProMealScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0,10,10,10
+        spacing: 5
+        
+        canvas.before:
+            Color:
+                rgba: (24/255, 24/255, 24/255, 1)  # Equivalent ng #140D29
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0]
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None 
+            size: 300, 800
+            padding: 0,10,10,10
+            spacing: 5
+            height: "300dp"  # Fixed height para hindi gumalaw pababa
+            
+            
+            FloatLayout:
+                orientation: 'vertical'
+                size_hint_x: 2
+                size_hint_y: 1.74
+                pos_hint: {'center_x':2,'center_y': 0.8}
+                height: 300  # Increase the height to make the BoxLayout larger
+                padding: 5
+                spacing: 5
+                canvas.before:
+                    Color:
+                        rgba: 0.6, 0.6, 0.6, 0.2  # Background color of the BoxLayout
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [0]
+
+                # Calendar Widget
+                CalendarWidget:
+                    id: calendar_widget
+                    size_hint: 0.9, 0.8
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6} 
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos_hint: {'center_y': 0.54}
+
+            # Breakfast Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None, None 
+                size: 490, 150
+                pos_hint: {'center_y': 1}
+                padding: 10
+                spacing: 5
+                
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day2.png'  # Palitan ng tamang path ng image
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    text: "BREAKFAST"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "center"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'ScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    pos_hint: {"center_x": 0.5}  
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        GridLayout:
+                            id: breakfast_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+            # Lunch Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None,None
+                size: 490, 150
+                pos_hint: {'center_y': 1}
+                padding: 10
+                spacing: 5
+
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day1.png'  # Ensure correct file path
+                        size: self.size
+                        pos: self.pos
+
+                Label:
+                    text: "LUNCH"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "center"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'DampedScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    pos_hint: {"center_x": 0.5} 
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size 
+                        GridLayout:
+                            id: lunch_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+            # Dinner Box
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: None, None 
+                size: 490, 150
+                pos_hint: {'center_y': 1}
+                padding: 10
+                spacing: 5
+                
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1  # Ensure full opacity
+                    Rectangle:
+                        source: 'Image/day.png'  # Palitan ng tamang path ng image
+                        pos: self.pos
+                        size: self.size
+
+                Label:
+                    text: "DINNER"
+                    font_size: '15sp'
+                    font_name: 'font/Milker.otf'
+                    size_hint_y: None
+                    height: "20dp"
+                    halign: "left"
+                ScrollView:
+                    bar_width: 5  # Itinatago ang scroll bar
+                    do_scroll_x: False
+                    effect_cls: 'ScrollEffect'  # Smooth scrolling
+                    scroll_wheel_distance: 50  # Mas mataas na scroll sensitivity
+                    pos_hint: {"center_x": 0.5}
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: max(self.minimum_height, 100)  # Default height
+
+                        canvas.before:
+                            Color:
+                                rgba: 0, 0, 0, 0.5  # Gray background
+                            Rectangle:
+                                pos: self.pos
+                                size: self.size
+                        GridLayout:
+                            id: dinner_log
+                            cols: 1
+                            size_hint_y: None
+                            height: max(self.minimum_height, 100)  # Para may default height
+                            padding: 15,0,15,15
+
+
+#LAYOUT PARA MAKITA UI NG MGA NUTRIENTS NG FOODS
+<MonitoringArea>:
+    canvas:
+        Color:
+            rgba: (166/255, 166/255, 166/255, 0)  # Equivalent ng #A6A6A6
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20]
+    padding: 10
+    spacing: 10
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: 421  # Adjusted height to fit all sections properly
+
+
+        # Total Weight and Image Button Section
+        FloatLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 85  # Adjusted height to accommodate total weight and button
+
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1 
+                Rectangle:
+                    pos: 10,355
+                    size: 310,100
+                    source: "Image/total.png"  # Palitan ng tamang file path
+
+
+
+            Label:
+                text: 'Total Weight'
+                font_name: 'font/NEXT ART_Heavy.otf'
+                font_size: 15
+                size_hint: None, None
+                size: self.texture_size
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.3, 'center_y': 0.85}
+
+            Label:
+                text: "[size=25]0[/size][size=20]g[/size]"
+                markup: True  # Enable Markup
+                font_name: 'font/NEXT ART_Heavy.otf'
+                font_size: 30
+                size_hint: None, None
+                size: self.texture_size
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                id: total_label
+                
+        BoxLayout:
+            orientation: 'horizontal'
+
+
+            # Protein Section
+            FloatLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                ProteinProgressBar:
+                    id: protein_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+
+                Label:
+                    text: 'PROTEIN'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 20
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: protein_label
+
+
+            # Fat Section
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                FatsProgressBar:
+                    id: fats_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+
+                Label:
+                    text: 'Fat'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 25
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: fat_label
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            # Carbohydrate Section
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                CarbsProgressBar:
+                    id: carbs_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+                Label:
+                    text: 'Carbs'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 25
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: carb_label
+
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                CalProgressBar:
+                    id: calories_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+                Label:
+                    text: 'Calories'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]kcal[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: cal_label
+
+
+        
+            
+            
+    
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: None, 1
+        size: 225, 350 
+        spacing: 10
+        
+
+        FloatLayout:
+            size_hint: None, None
+            size: 200, 350  # Adjust as needed
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            Image:
+                source: 'Image/newnewn.png'
+                size_hint: None, None
+                size: 290, 376
+                pos_hint: {'center_x': 0.5, 'center_y': 0.54}
+
+
+            Label:
+                text: 'Meal Breakdown'
+                font_name: 'font/Milker.otf'
+                font_size: 15
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.5, 'top': 1.51}
+
+            ScrollView:
+                id: my_scrollview
+                bar_width: 0  # Itinatago ang scroll bar
+                size_hint: (1, 0.95)
+                do_scroll_x: False
+                do_scroll_y: True
+                effect_cls: 'DampedScrollEffect'  # Smooth scrolling
+                scroll_wheel_distance: 45  # Mas mataas na scroll sensitivity
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                
+                BoxLayout:
+                    id: monitor_box
+                    text:""
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height  # Para may default height
+                    padding: 10
+                    spacing: 10
+                    
+                    Label:
+                        id: monitor_label
+                        text:''
+                        font_size:15
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height:self.texture_size[1]
+                    
+                        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None
+            size: 225, 40
+            height: 40
+            spacing: 5
+            pos_hint: {'center_x': 0.53, 'center_y': 0.5}
+            
+            ImageButtonC:
+                on_press:root.clear_data(), root.clear_progress()
+
+            ImageButtonS:
+
+                on_release: root.save_data()
+
+<ProMonitoringArea>:
+    canvas:
+        Color:
+            rgba: (166/255, 166/255, 166/255, 0)  # Equivalent ng #A6A6A6
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20]
+    padding: 10
+    spacing: 10
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: 421  # Adjusted height to fit all sections properly
+
+
+        # Total Weight and Image Button Section
+        FloatLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 85  # Adjusted height to accommodate total weight and button
+
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1 
+                Rectangle:
+                    pos: 10,355
+                    size: 310,100
+                    source: "Image/total.png"  # Palitan ng tamang file path
+
+
+
+            Label:
+                text: 'Total Weight'
+                font_name: 'font/NEXT ART_Heavy.otf'
+                font_size: 15
+                size_hint: None, None
+                size: self.texture_size
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.3, 'center_y': 0.85}
+
+            Label:
+                text: "[size=25]0[/size][size=20]g[/size]"
+                markup: True  # Enable Markup
+                font_name: 'font/NEXT ART_Heavy.otf'
+                font_size: 30
+                size_hint: None, None
+                size: self.texture_size
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                id: total_label
+                
+        BoxLayout:
+            orientation: 'horizontal'
+
+
+            # Protein Section
+            FloatLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                ProteinProgressBar:
+                    id: protein_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+
+                Label:
+                    text: 'PROTEIN'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 20
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: protein_label
+
+
+            # Fat Section
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                FatsProgressBar:
+                    id: fats_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+
+                Label:
+                    text: 'Fat'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 25
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: fat_label
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            # Carbohydrate Section
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                CarbsProgressBar:
+                    id: carbs_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+
+                Label:
+                    text: 'Carbs'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]g[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 25
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: carb_label
+
+            FloatLayout:
+                size_hint_y: None
+                height: 75
+                canvas.before:
+                    Rectangle:
+                        pos: self.pos
+                        size: 140,175
+                        source: "Image/moni4.png"  # Palitan ng tamang file path
+
+                CalProgressBar:
+                    id: calories_progress
+                    size_hint: None, None
+                    size: 50,50  # Gawin kasing laki ng container
+                    pos_hint: {'center_x': 0.5, 'center_y': 1}
+                Label:
+                    text: 'Calories'
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    font_size: 14
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 2}
+                    color: 1, 1, 1, 1
+
+                Label:
+                    text: "[size=20]0[/size][size=15]kcal[/size]"
+                    markup: True  # Enable Markup
+                    font_name: 'font/NEXT ART_Heavy.otf'
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5, 'center_y': 1.7}
+                    color: 1, 1, 1, 1
+                    id: cal_label
+
+
+        
+            
+            
+    
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: None, 1
+        size: 225, 350 
+        spacing: 10
+        
+
+        FloatLayout:
+            size_hint: None, None
+            size: 200, 350  # Adjust as needed
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+            Image:
+                source: 'Image/newnewn.png'
+                size_hint: None, None
+                size: 290, 376
+                pos_hint: {'center_x': 0.5, 'center_y': 0.54}
+
+
+            Label:
+                text: 'Meal Breakdown'
+                font_name: 'font/Milker.otf'
+                font_size: 15
+                color: 1, 1, 1, 1
+                pos_hint: {'center_x': 0.5, 'top': 1.51}
+
+            ScrollView:
+                id: my_scrollview
+                bar_width: 0  # Itinatago ang scroll bar
+                size_hint: (1, 0.95)
+                do_scroll_x: False
+                do_scroll_y: True
+                effect_cls: 'DampedScrollEffect'  # Smooth scrolling
+                scroll_wheel_distance: 45  # Mas mataas na scroll sensitivity
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                
+                BoxLayout:
+                    id: monitor_box
+                    text:""
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: self.minimum_height  # Para may default height
+                    padding: 10
+                    spacing: 10
+                    
+                    Label:
+                        id: monitor_label
+                        text:''
+                        font_size:15
+                        color: 1,1,1,1
+                        size_hint_y: None
+                        height:self.texture_size[1]
+                    
+                        
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: None, None
+            size: 225, 40
+            height: 40
+            spacing: 5
+            pos_hint: {'center_x': 0.53, 'center_y': 0.5}
+            
+            ImageButtonC:
+                on_press:root.clear_data(), root.clear_progress()
+
+            ImageButtonS:
+
+                on_release: root.save_data()
+
+
+
+
+
+
+
+
