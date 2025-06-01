@@ -1,5 +1,3 @@
-# Mealmetric
-
 ## 🚀 Intro
 This is my thesis project back in my college days and i was assigned to be the developer, so i am the one who encoded this whole project...
 
