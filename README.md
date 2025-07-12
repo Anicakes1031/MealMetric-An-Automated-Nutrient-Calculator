@@ -20,5 +20,7 @@ The purpose of this repository is to show my knowledge in python language...
 ![image](https://github.com/user-attachments/assets/5a835f4e-290b-45d2-8a83-53d15942d486)
 ![image](https://github.com/user-attachments/assets/5a505dfd-40eb-4fb5-8e72-ead6c93f08d9)
 ![image](https://github.com/user-attachments/assets/58d423f6-87e4-4084-93c1-a3ff7eebd1b9)
+![thesis1](https://github.com/user-attachments/assets/eeec6037-9d1e-4f10-8a29-16318d7a8202)
 
 
+## For more info, you can visit my portfolio: https://anicakes1031.github.io/MyPortfolio/
